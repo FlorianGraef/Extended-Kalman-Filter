@@ -2,7 +2,7 @@
 #include "tools.h"
 #include "Eigen/Dense"
 #include <iostream>
-#define EPS 0.0001
+#define SMALL_NO 0.0001
 
 using namespace std;
 using Eigen::MatrixXd;
@@ -90,9 +90,9 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
         ekf_.x_[2] = 0.f;
         ekf_.x_[3] = 0.f;
     }
-      if (fabs(ekf_.x_(0)) < EPS and fabs(ekf_.x_(1)) < EPS){
-          ekf_.x_(0) = EPS;
-          ekf_.x_(1) = EPS;
+      if (fabs(ekf_.x_(0)) < SMALL_NO and fabs(ekf_.x_(1)) < SMALL_NO){
+          ekf_.x_(0) = SMALL_NO;
+          ekf_.x_(1) = SMALL_NO;
       }
 
     ekf_.F_ << 1, 0, 1, 0,

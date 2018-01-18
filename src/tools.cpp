@@ -1,8 +1,8 @@
 #include <iostream>
 #include "tools.h"
 
-#define EPS 0.0001 // A very small number
-#define EPS2 0.0000001
+#define SMALL_NO 0.0001
+#define VERY_SMALL_NO 0.0000001
 
 using namespace std;
 using Eigen::VectorXd;
@@ -49,17 +49,16 @@ MatrixXd Tools::CalculateJacobian(const VectorXd &x_state) {
     float vx = x_state(2);
     float vy = x_state(3);
     MatrixXd Hj(3, 4);
-    // Deal with the special case problems
-    if (fabs(px) < EPS and fabs(py) < EPS) {
-        px = EPS;
-        py = EPS;
+
+    if (fabs(px) < SMALL_NO and fabs(py) < SMALL_NO) {
+        px = SMALL_NO;
+        py = SMALL_NO;
     }
 
-    // Pre-compute a set of terms to avoid repeated calculation
     float px_py = px * px + py * py;
     // avoid division by zero
-    if (fabs(px_py) < EPS2) {
-        px_py = EPS2;
+    if (fabs(px_py) < VERY_SMALL_NO) {
+        px_py = VERY_SMALL_NO;
     }
     float sqrt_px_py = sqrt(px_py);
     float px_py_sqrt_px_py = (px_py * sqrt_px_py);
